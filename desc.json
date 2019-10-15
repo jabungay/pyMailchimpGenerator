@@ -1,0 +1,52 @@
+{
+  "Make your own Smartphone Stand":
+  {
+    "description": "The Makerspace will be holding a free CAD and 3D Printing workshop where we will be creating smartphone stands. This workshop will take place on %DATE% from %TIME1% – %TIME2%. This workshop will be a great way to develop CAD skills, and you even get to take home a free smartphone stand. The capacity of this workshop is limited to 8 people, so sign-up fast!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/b093e076-bb84-4081-bfbb-5346cdbb9540.png"
+  },
+  "Vinyl Cutting Workshop":
+  {
+    "description": "The Makerspace will be holding a free Vinyl Cutting workshop on %DATE%, from %TIME1% – %TIME2%. Choose or create your own design and print it on to your favourite colour of Vinyl. Cut out the design to make some cool looking stickers that are great for decorating just about anything! The capacity of this workshop is 10 people. We hope to see you there!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/ab3fafde-9448-4707-a452-b041bff6aa63.jpg"
+  },
+  "Make your own 3D Printed Ornament":
+  {
+    "description": "The Makerspace will be holding a free CAD and 3D Printing workshop where we will be creating decorative ornaments. This workshop will take place on %DATE% from %TIME1% - %TIME2%. This workshop will provide instruction and give hands-on experience with using Fusion 360 software. You even get to take home a free 3D printed decoration. The capacity of this workshop is limited to 6 people, so sign-up fast!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/088ac8f3-c40b-46e3-99a4-51b5d69c716f.jpg"
+  },
+  "Make your own Video Game!":
+  {
+    "description": "The Makerspace will be holding a free Intro to Video Game Development Workshop on %DATE% from %TIME1% - %TIME2%. The topic of the workshop will be to create and play a vintage style video game, Rollerball. This will cover foundational programming concepts for game development and beyond!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/4d421353-1bb6-4cbc-bf64-6a879c5bf9ff.png"
+  },
+  "Intro to 3D Printing - Star Trek Workshop":
+  {
+    "description":   "The Makerspace will be holding a free 3D printing - Star Trek badge workshop on %DATE% from %TIME1% - %TIME2%. Design a Star Trek badge using CAD software, and feel free to customize it by adding your initials. 3D print the badge and glue on a button/pin to make it wearable. You can even take the badge home for free! This workshop will be an awesome event and we hope to see you there!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/8410d09f-3484-4bef-849d-60a16c6a3420.jpg"
+  },
+  "Virtual Reality Design and 3D Printing Workshop":
+  {
+      "description": "The Makerspace will be holding a free virtual-reality design and 3D printing  workshop on %DATE%, from %TIME1% – %TIME2%. Create your very own 3D object using virtual reality and then 3D print it. The capacity of this workshop is 5 people. We hope to see you there!",
+      "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/9e3b9e11-705f-48ad-8aec-ef6df76b4884.jpg"
+  },
+  "Make your own 3D Printed Lego Block":
+  {
+    "description": "The Makerspace will be holding a free CAD and 3D Printing workshop where we will be making our own Lego blocks! This workshop will take place on %DATE% from %TIME1% – %TIME2%. This will be a cool intro to CAD and a great way to make yourself or a friend a free Lego brick. The capacity of this workshop is limited to 8 people, so sign-up fast!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/1ca4083c-c0c4-4b5e-99c7-d1c7df82abe0.jpg"
+  },
+  "Wallet Sewing Workshop":
+  {
+    "description": "The Makerspace will be holding a free Wallet Sewing workshop on %DATE% from %TIME1% – %TIME2%. Use our sewing machines to create a \"Minimalist Wallet\". They are perfect for holding all your cards and cash. The capacity of this workshop is 5 people. We hope to see you there!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/26ca7ff7-506b-4228-8c5f-e73b19227554.png"
+  },
+  "Button Making Workshop":
+  {
+    "description": "The Makerspace will be holding a free Button Making workshop on %DATE% from %TIME1% – %TIME2%. Print a personalized design of your choosing and then use our button-making machine to create your very own button/pin. You can even take your button home for free! This workshop will be an awesome event and we hope to see you there!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/bbb382c8-13c2-4c99-a972-7f8d7d6f8364.jpg"
+  },
+  "Electronics and Arduino Workshop":
+  {
+    "description":"The Makerspace will be holding a free introductory electronics workshop on %DATE% from %TIME1% – %TIME2%. Construct circuits using LEDs, Arduino boards, buttons and even a servo motor. Program the Arduino boards to perform tasks such as blinking an LED. This workshop will be a fun event and we hope to see you there!",
+    "image": "https://gallery.mailchimp.com/43afcac0851135d0fb7a73023/images/9f010fdb-9e4d-4b4c-bdc3-101ca2035f84.jpg"
+  }
+}
