@@ -9,8 +9,6 @@ from datetime import timedelta
 from bs4 import BeautifulSoup
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
-
-
 # IDs for the Google Form
 nameEntry = '156144986' # Replace ' ' with '+'
 dateEntry = '263450907' # yyyy-mm-dd
@@ -98,6 +96,67 @@ def checkValues():
     # If everything is okay, destroy the first window and continue with the program
     startupWindow.destroy()
 
+def addDescription(workshop):
+    descAdderWindow = tkinter.Tk()
+    descAdderWindow.title("Add a Description")
+
+    linkVar = tkinter.StringVar()
+
+    descAdderFrame = tkinter.Frame(descAdderWindow)
+    tkinter.Label(descAdderFrame, text="\"" + workshop + "\" has no description!\nAdd one now or press skip to add one later.").pack(pady=10)
+    tkinter.Label(descAdderFrame, text="Description:").pack(anchor=tkinter.W)
+    desc = tkinter.Text(descAdderFrame,height=8, width=50)
+    desc.pack()
+    tkinter.Label(descAdderFrame, text="Use %DATE% as a placeholder for the date of the workshop,\n%TIME1% for the start time, and %TIME2% for the end time.").pack(anchor=tkinter.W, pady=10)
+    tkinter.Label(descAdderFrame, text="Image Link:").pack(pady=10)
+    tkinter.Entry(descAdderFrame, textvariable=linkVar).pack(fill='x')
+
+    tkinter.Button(descAdderFrame, text="Add", command=lambda: addDesc(workshop, desc.get("1.0", tkinter.END), linkVar.get())).pack(padx=10, pady=10)
+    tkinter.Button(descAdderFrame, text="Skip", command=lambda: descAdderWindow.destroy()).pack(padx=10, pady=10)
+
+    descAdderFrame.pack(padx=20, pady=20)
+    descAdderWindow.mainloop()
+
+def addDesc(workshop, desc, link):
+    file = open("desc.json", "w+")
+    data = file.read()
+    
+
+    # Convert string to JSON object
+    wsData = json.loads(data)
+    print(workshop)
+    print(desc)
+    print(link)
+
+
+# Get all spans from the Google Form
+response = requests.get(formUrl)
+data = BeautifulSoup(response.text, "html.parser")
+spans = data.findAll('span')
+
+# Add all workshop options to the possibleWorkshops array
+for i in spans:
+    if i["class"][0] == "quantumWizMenuPaperselectContent" and i.string != "Choose":
+        possibleWorkshops.append(i.string)
+
+# Read the json file holding all descriptions and save to a variable
+f = open("desc.json", "r")
+data = f.read()
+f.close()
+
+# Convert string to JSON object
+wsData = json.loads(data)
+
+for i in possibleWorkshops:
+    hasDesc = False
+    for j in wsData:
+        if i == j:
+            hasDesc = True
+            break
+    if hasDesc == False:
+        addDescription(i)
+
+
 # Create the first window, and hold the program until the user continues
 startupWindow = tkinter.Tk()
 startupWindow.title("Mailchimp Generator")
@@ -107,10 +166,10 @@ numWorkshopsVar = tkinter.StringVar()
 startDateVar = tkinter.StringVar()
 
 startupFrame = tkinter.Frame(startupWindow)
-tkinter.Label(startupFrame, text = "How Many Workshops?").pack(anchor = tkinter.W)
-tkinter.Entry(startupFrame, textvariable = numWorkshopsVar).pack(anchor = tkinter.W, pady = 10)
-tkinter.Label(startupFrame, text = "On What Date is Monday of the Week?").pack(anchor = tkinter.W)
-tkinter.Entry(startupFrame, textvariable = startDateVar).pack(anchor = tkinter.W, pady = 10)
+tkinter.Label(startupFrame, text = "How Many Workshops?").pack()
+tkinter.Entry(startupFrame, textvariable = numWorkshopsVar).pack(fill='x', pady = 10)
+tkinter.Label(startupFrame, text = "On What Date is Monday of the Week?").pack()
+tkinter.Entry(startupFrame, textvariable = startDateVar).pack(fill='x', pady = 10)
 tkinter.Button(startupFrame, text = "Next", command = lambda: checkValues()).pack(side = tkinter.BOTTOM)
 startupFrame.pack(padx=20, pady=20)
 
@@ -132,24 +191,6 @@ top = top.replace("%DATERANGE%", dateRange)
 images  = [imageTemplate]  * numWorkshops
 texts   = [textTemplate]   * numWorkshops
 buttons = [buttonTemplate] * numWorkshops
-
-# Get all spans from the Google Form
-response = requests.get(formUrl)
-data = BeautifulSoup(response.text, "html.parser")
-spans = data.findAll('span')
-
-# Add all workshop options to the possibleWorkshops array
-for i in spans:
-    if i["class"][0] == "quantumWizMenuPaperselectContent" and i.string != "Choose":
-        possibleWorkshops.append(i.string)
-
-# Read the json file holding all descriptions and save to a variable
-f = open("desc.json", "r")
-data = f.read()
-f.close()
-
-# Convert string to JSON object
-wsData = json.loads(data)
 
 
 # Add all frames to the frames array
