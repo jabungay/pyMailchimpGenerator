@@ -46,6 +46,19 @@ lineSpacerFile = open("templates/spacer.html")
 lineSpacer = lineSpacerFile.read()
 lineSpacerFile.close()
 
+
+
+def endProgram():
+    exit()
+
+def readJSON(filename):
+    # Open the JSON file and read the data
+    file = open(filename, "r")
+    data = file.read()
+    file.close()
+
+    return json.loads(data)
+
 # Ensure the entered workshop quantity and date makes sense before continuing
 def checkValues():
     # Ensure the user enters the date in the correct format (yyyy-mm-dd)
@@ -96,8 +109,9 @@ def checkValues():
     # If everything is okay, destroy the first window and continue with the program
     startupWindow.destroy()
 
-def addDescription(workshop):
+def descPrompt(workshop):
     descAdderWindow = tkinter.Tk()
+    descAdderWindow.protocol('WM_DELETE_WINDOW', endProgram)
     descAdderWindow.title("Add a Description")
 
     linkVar = tkinter.StringVar()
@@ -111,22 +125,31 @@ def addDescription(workshop):
     tkinter.Label(descAdderFrame, text="Image Link:").pack(pady=10)
     tkinter.Entry(descAdderFrame, textvariable=linkVar).pack(fill='x')
 
-    tkinter.Button(descAdderFrame, text="Add", command=lambda: addDesc(workshop, desc.get("1.0", tkinter.END), linkVar.get())).pack(padx=10, pady=10)
+    tkinter.Button(descAdderFrame, text="Add", command=lambda: addDesc(descAdderWindow, workshop, desc.get("1.0", tkinter.END), linkVar.get())).pack(padx=10, pady=10)
     tkinter.Button(descAdderFrame, text="Skip", command=lambda: descAdderWindow.destroy()).pack(padx=10, pady=10)
 
     descAdderFrame.pack(padx=20, pady=20)
     descAdderWindow.mainloop()
 
-def addDesc(workshop, desc, link):
-    file = open("desc.json", "w+")
-    data = file.read()
-    
+def addDesc(window, workshop, desc, link):
+    # Remove any carriage returns present in the description
+    desc = desc.replace("\n", "")
 
-    # Convert string to JSON object
-    wsData = json.loads(data)
-    print(workshop)
-    print(desc)
-    print(link)
+    oldData = readJSON("desc.json")
+
+    # Format the information about the workshop as JSON
+    jsonToAdd = {"description":desc,"image":link}
+    # Add this data to the wsData variable
+    oldData[workshop] = jsonToAdd
+
+    # Re-write the oldData to the file then close it
+    oldDataString = str(oldData).replace("\'", "\"")
+
+    file = open("desc.json", "w+")
+    file.write(oldDataString)
+    file.close()
+
+    window.destroy()
 
 
 # Get all spans from the Google Form
@@ -139,13 +162,9 @@ for i in spans:
     if i["class"][0] == "quantumWizMenuPaperselectContent" and i.string != "Choose":
         possibleWorkshops.append(i.string)
 
-# Read the json file holding all descriptions and save to a variable
-f = open("desc.json", "r")
-data = f.read()
-f.close()
 
 # Convert string to JSON object
-wsData = json.loads(data)
+wsData = readJSON("desc.json")
 
 for i in possibleWorkshops:
     hasDesc = False
@@ -154,11 +173,12 @@ for i in possibleWorkshops:
             hasDesc = True
             break
     if hasDesc == False:
-        addDescription(i)
+        descPrompt(i)
 
 
 # Create the first window, and hold the program until the user continues
 startupWindow = tkinter.Tk()
+startupWindow.protocol('WM_DELETE_WINDOW', endProgram)
 startupWindow.title("Mailchimp Generator")
 
 # Configure first frame
@@ -177,6 +197,7 @@ startupWindow.mainloop()
 
 # Init. tkinter window
 window = tkinter.Tk()
+window.protocol('WM_DELETE_WINDOW', endProgram)
 window.title("Mailchimp Generator")
 
 numWorkshops = int(numWorkshopsVar.get())
@@ -265,8 +286,8 @@ def increment(frameNumber):
         tkinter.messagebox.showinfo("Success!", "HTML file created and saved as \'output.html\'!")
         window.destroy()
 
-
-
+# Ensure that wsData contains the latest JSON data before starting
+wsData = readJSON("desc.json")
 
 # Load first frame
 frames[0].pack(padx=20, pady=20)
